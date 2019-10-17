@@ -1,6 +1,8 @@
 const calculator = document.querySelector('#calculator');
 const output = document.querySelector('#output input');
 
+let isDotClicked = false;
+
 calculator.addEventListener('click', e => {
 
   const target = e.target.parentElement.id;
@@ -85,7 +87,16 @@ calculator.addEventListener('click', e => {
       break;
     
     case 'clear':
-      output.value = 0;
+      output.value = '0';
+      isDotClicked = false;
+      break;
+    
+    case 'dot':
+      if (!isDotClicked) {
+        output.value += '.';
+        isDotClicked = true;
+      }
+      break;
 
   }
 });
