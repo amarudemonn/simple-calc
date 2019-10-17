@@ -142,6 +142,28 @@ calculator.addEventListener('click', e => {
       }
       break;
 
+    case 'backspace-field':
+    case 'backspace-btn':
+      if (output.value !== '0') {
+        const target = output.value[output.value.length - 1];
+        output.value = output.value.slice(0, output.value.length - 1);
+
+        if (output.value.length === 0) {
+          output.value = '0';
+        }
+
+        if (target === '.') {
+          isDotClicked = false;
+        } else if (
+          target === '+' ||
+          target === '-' ||
+          target === '*' ||
+          target === '/'
+        ) {
+          isOperatorClicked = false;
+        }
+      }
+      break;
   }
 
 });
