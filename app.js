@@ -2,6 +2,7 @@ const calculator = document.querySelector('#calculator');
 const output = document.querySelector('#output input');
 
 let isDotClicked = false;
+let isOperatorClicked = false;
 
 calculator.addEventListener('click', e => {
 
@@ -12,6 +13,7 @@ calculator.addEventListener('click', e => {
       if (output.value !== '0') {
         output.value += '0';
       }
+      isOperatorClicked = false;
       break;
 
     case 'one':
@@ -20,6 +22,7 @@ calculator.addEventListener('click', e => {
       } else {
         output.value = '1';
       }
+      isOperatorClicked = false;
       break;
 
     case 'two':
@@ -28,6 +31,7 @@ calculator.addEventListener('click', e => {
       } else {
         output.value = '2';
       }
+      isOperatorClicked = false;
       break;
 
     case 'three':
@@ -36,6 +40,7 @@ calculator.addEventListener('click', e => {
       } else {
         output.value = '3';
       }
+      isOperatorClicked = false;
       break;
 
     case 'four':
@@ -44,6 +49,7 @@ calculator.addEventListener('click', e => {
       } else {
         output.value = '4';
       }
+      isOperatorClicked = false;
       break;
 
     case 'five':
@@ -52,6 +58,7 @@ calculator.addEventListener('click', e => {
       } else {
         output.value = '5';
       }
+      isOperatorClicked = false;
       break;
 
     case 'six':
@@ -60,6 +67,7 @@ calculator.addEventListener('click', e => {
       } else {
         output.value = '6';
       }
+      isOperatorClicked = false;
       break;
 
     case 'seven':
@@ -68,6 +76,7 @@ calculator.addEventListener('click', e => {
       } else {
         output.value = '7';
       }
+      isOperatorClicked = false;
       break;
 
     case 'eight':
@@ -76,6 +85,7 @@ calculator.addEventListener('click', e => {
       } else {
         output.value = '8';
       }
+      isOperatorClicked = false;
       break;
 
     case 'nine':
@@ -84,13 +94,15 @@ calculator.addEventListener('click', e => {
       } else {
         output.value = '9';
       }
+      isOperatorClicked = false;
       break;
-    
+
     case 'clear':
       output.value = '0';
       isDotClicked = false;
+      isOperatorClicked = false;
       break;
-    
+
     case 'dot':
       if (!isDotClicked) {
         output.value += '.';
@@ -98,5 +110,38 @@ calculator.addEventListener('click', e => {
       }
       break;
 
+    case 'plus':
+      if (!isOperatorClicked) {
+        output.value += '+';
+        isOperatorClicked = true;
+        isDotClicked = false;
+      }
+      break;
+
+    case 'minus':
+      if (!isOperatorClicked) {
+        output.value += '-';
+        isOperatorClicked = true;
+        isDotClicked = false;
+      }
+      break;
+
+    case 'times':
+      if (!isOperatorClicked) {
+        output.value += '*';
+        isOperatorClicked = true;
+        isDotClicked = false;
+      }
+      break;
+
+    case 'divide':
+      if (!isOperatorClicked) {
+        output.value += '/';
+        isOperatorClicked = true;
+        isDotClicked = false;
+      }
+      break;
+
   }
+
 });
