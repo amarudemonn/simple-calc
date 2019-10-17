@@ -1,8 +1,11 @@
 const calculator = document.querySelector('#calculator');
 const output = document.querySelector('#output input');
+const buttons = document.querySelectorAll('button:not(#clear-btn):not(#backspace-btn)');
+const clearBtn = document.querySelector('#clear-btn');
 
 let isDotClicked = false;
 let isOperatorClicked = false;
+let isDisabled = false;
 
 calculator.addEventListener('click', e => {
 
@@ -101,6 +104,7 @@ calculator.addEventListener('click', e => {
       output.value = '0';
       isDotClicked = false;
       isOperatorClicked = false;
+      inable();
       break;
 
     case 'dot':
@@ -164,6 +168,53 @@ calculator.addEventListener('click', e => {
         }
       }
       break;
+
+    case 'eval':
+      let result;
+
+      if (
+        output.value[output.value.length - 1] === '+' ||
+        output.value[output.value.length - 1] === '-' ||
+        output.value[output.value.length - 1] === '*' ||
+        output.value[output.value.length - 1] === '/'
+      ) {
+        result = output.value.slice(0, output.value.length - 1);
+      } else if (output.value[output.value.length - 1] === '.') {
+        result = output.value + '0';
+      } else {
+        result = output.value;
+      }
+
+      output.value = eval(result);
+      isOperatorClicked = false;
+      isDotClicked = false;
+
+      if (output.value.split('.').length === 2) {
+        isDotClicked = true;
+      }
+
+      if (!isFinite(output.value)) {
+        output.value = 'Error';
+        disable();
+      }
+
+      break;
   }
 
 });
+
+function disable() {
+  isDisabled = true;
+  clearBtn.classList.add('error');
+  buttons.forEach(button => {
+    button.disabled = true;
+  })
+}
+
+function inable() {
+  isDisabled = false;
+  clearBtn.classList.remove('error');
+  buttons.forEach(button => {
+    button.disabled = false;
+  })
+}

@@ -69,3 +69,12 @@ body {
 .btn:hover {
   background-color: #e0e0e0;
 }
+
+.error {
+  background-color: #fb8c00;
+  color: #fff;
+}
+
+.error:hover {
+  background-color: #f57c00;
+}
