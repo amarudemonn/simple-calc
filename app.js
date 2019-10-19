@@ -102,9 +102,10 @@ calculator.addEventListener('click', e => {
 
     case 'clear':
       output.value = '0';
-      isDotClicked = false;
-      isOperatorClicked = false;
-      inable();
+      refresh();
+      if (isDisabled) {
+        inable();
+      }
       break;
 
     case 'dot':
@@ -170,34 +171,20 @@ calculator.addEventListener('click', e => {
       break;
 
     case 'eval':
-      let result;
+      try {
+        output.value = eval(output.value);
+        
+        refresh();
 
-      if (
-        output.value[output.value.length - 1] === '+' ||
-        output.value[output.value.length - 1] === '-' ||
-        output.value[output.value.length - 1] === '*' ||
-        output.value[output.value.length - 1] === '/'
-      ) {
-        result = output.value.slice(0, output.value.length - 1);
-      } else if (output.value[output.value.length - 1] === '.') {
-        result = output.value + '0';
-      } else {
-        result = output.value;
-      }
+        if (!isFinite(output.value)) throw new Error();
 
-      output.value = eval(result);
-      isOperatorClicked = false;
-      isDotClicked = false;
-
-      if (output.value.split('.').length === 2) {
-        isDotClicked = true;
-      }
-
-      if (!isFinite(output.value)) {
+        if (output.value.split('.').length === 2) {
+          isDotClicked = true;
+        }
+      } catch {
         output.value = 'Error';
         disable();
       }
-
       break;
   }
 
@@ -217,4 +204,9 @@ function inable() {
   buttons.forEach(button => {
     button.disabled = false;
   })
+}
+
+function refresh() {
+  isDotClicked = false;
+  isOperatorClicked = false;
 }
